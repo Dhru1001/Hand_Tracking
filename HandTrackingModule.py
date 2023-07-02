@@ -4,14 +4,15 @@ import time
 
 
 class handDetector():
-    def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5) -> None:
+    def __init__(self, mode=False, maxHands=2, modelC=1, detectionCon=0.5, trackCon=0.5) -> None:
         self.mode = mode
         self.maxHands = maxHands
+        self.modelC = modelC
         self.detectionCon = detectionCon
         self.trackCon = trackCon
 
         self.mpHands = mp.solutions.hands
-        self.hands = self.mpHands.Hands(self.mode, self.maxHands,
+        self.hands = self.mpHands.Hands(self.mode, self.maxHands, self.modelC,
                                          self.detectionCon, self.trackCon)
         self.mpDraw = mp.solutions.drawing_utils
 
