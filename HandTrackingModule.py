@@ -2,7 +2,7 @@ import cv2
 import mediapipe as mp
 import time
 
-
+# detect the hand individually
 class handDetector():
     def __init__(self, mode=False, maxHands=2, modelC=1, detectionCon=0.5, trackCon=0.5) -> None:
         self.mode = mode
@@ -28,7 +28,7 @@ class handDetector():
                         img, handLms, self.mpHands.HAND_CONNECTIONS)
         return img
 
-    def findPostion(self, img, HandNo=0, draw=True):
+    def findPosition(self, img, HandNo=0, draw=True):
 
         lmList = []
 
@@ -56,7 +56,7 @@ def main():
     while True:
         success, img = cap.read()
         img = detector.findHands(img)
-        lmList = detector.findPostion(img)
+        lmList = detector.findPosition(img)
         if len(lmList) != 0:
             print(lmList[4])
         cTime = time.time()

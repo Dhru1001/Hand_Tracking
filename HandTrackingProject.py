@@ -10,12 +10,22 @@ detector = htm.handDetector()
 
 while True:
     success, img = cap.read()
-    img = detector.findHands(img, draw=False)
-    lmList = detector.findPostion(img, draw=False)
-    if len(lmList) != 0:
-        print(lmList[4])
+    img = detector.findHands(img)
+    lmList = detector.findPosition(img)
+
+    # Check if there are at least two hands detected
+    if len(lmList) >= 2 * 21:
+        # Print the coordinates of the 5th landmark for each hand
+        print("Hand 1:", lmList[4])
+        print("Hand 2:", lmList[25])  # Assuming hand landmarks are stored consecutively
+    elif len(lmList) >= 21:
+        # Print the coordinates of the 5th landmark for the first hand
+        print("Hand 1:", lmList[4])
+
     cTime = time.time()
-    fps = 1/(cTime - pTime)
+    fps = 0  # Initialize fps with a default value
+    if pTime != 0:
+        fps = 1 / (cTime - pTime)
     pTime = cTime
 
     cv2.putText(img, str(int(fps)), (10, 70),
